@@ -172,4 +172,10 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswas.index')
         -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
+
+    public function nilaikhs($nim){
+        $Mahasiswa = Mahasiswa::find($nim);
+
+        return view('mahasiswas.nilaikhs', compact('Mahasiswa'));
+    }
 }
