@@ -14,23 +14,23 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        $mahasiswas = Mahasiswa::paginate(5);
-        return view('mahasiswas.index', compact('mahasiswas', 'user'))
-        ->with('i', (request()->input('page', 1) -1)*5);
+        // $user = Auth::user();
+        // $mahasiswas = Mahasiswa::paginate(5);
+        // return view('mahasiswas.index', compact('mahasiswas', 'user'))
+        // ->with('i', (request()->input('page', 1) -1)*5);
 
-        // if ($request->has('search')) {
-        //     $mahasiswas = Mahasiswa::where('nama', 'LIKE', '%' . request('search') . '%') ->paginate(5);
-        //     return view('mahasiswas.index', ['mahasiswas' => $mahasiswas]);
-        // }else{
-        // //fungsi eloquent menampilkan data menggunakan pagination
-        // //$mahasiswas = Mahasiswa::all();//ambil all data
-        // $mahasiswas = Mahasiswa::orderBy('nim', 'desc')->paginate(5);
-        // return view('mahasiswas.index', compact('mahasiswas'))
-        // ->with('i', (request()->input('page', 1)-1)*5);
-        // }
+        if ($request->has('search')) {
+            $mahasiswas = Mahasiswa::where('nama', 'LIKE', '%' . request('search') . '%') ->paginate(5);
+            return view('mahasiswas.index', ['mahasiswas' => $mahasiswas]);
+        }else{
+        //fungsi eloquent menampilkan data menggunakan pagination
+        //$mahasiswas = Mahasiswa::all();//ambil all data
+        $mahasiswas = Mahasiswa::orderBy('nim', 'desc')->paginate(5);
+        return view('mahasiswas.index', compact('mahasiswas'))
+        ->with('i', (request()->input('page', 1)-1)*5);
+        }
     }
 
     /**

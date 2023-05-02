@@ -8,7 +8,7 @@
             <div class="row mt-5 d-flex justify-content-beetwen">
                 <form method="get" action="{{ route('mahasiswas.index') }}" class="col-7 d-flex justify-content-start">
                     <div class="input-group mb-3">
-                        <input id="search" name="search" class="form-control me-2" type="text" placeholder="search" aria-label="search" 
+                        <input type="text" name="search" class="form-control me-2" type="text" placeholder="search" aria-label="search" 
                         value="{{ request('search') }}">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </div> 
