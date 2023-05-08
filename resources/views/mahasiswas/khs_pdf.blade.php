@@ -12,9 +12,7 @@
             <strong>NIM: </strong> {{$Mahasiswa->nim}}<br>
             <strong>Kelas: </strong> {{$Mahasiswa->kelas->nama_kelas}}
         </div>
-        
-    </div>
-    <br>
+    </div><br>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -25,19 +23,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($Mahasiswa->mataKuliah as $matkul)
+            @foreach($Mahasiswa->mataKuliah as $matkul)
             <tr>
-                <td>{{ $matkul->nama_matkul }}</td>
-                <td>{{ $matkul->sks }}</td>
-                <td>{{ $matkul->semester }}</td>
-                <td>{{ $matkul->pivot->nilai }}</td>
+                <td>{{$matkul->nama_matkul}}</td>
+                <td>{{$matkul->sks}}</td>
+                <td>{{$matkul->semester}}</td>
+                <td>{{$matkul->pivot->nilai}}</td>
+
             </tr>
             @endforeach
         </tbody>
     </table>
-    {{-- <a href="{{ route('mahasiswas.index') }}" class="btn btn-success">Kembali</a> --}}
-    <center>
-        <a href="{{ route('cetak_khs', $Mahasiswa->nim) }}" class="btn btn-danger">Cetak PDF</a>
-    </center>
 </div>
 @endsection

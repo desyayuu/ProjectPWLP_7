@@ -6,7 +6,7 @@ use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use Barryvdh\DomPDF\Facade\PDF;
 
 class MahasiswaController extends Controller
 {
@@ -194,5 +194,12 @@ class MahasiswaController extends Controller
         $Mahasiswa = Mahasiswa::find($nim);
 
         return view('mahasiswas.nilaikhs', compact('Mahasiswa'));
+    }
+
+    public function cetak_khs($nim)
+    {
+        $Mahasiswa = Mahasiswa::find($nim);
+        $cetak_pdf = PDF::loadView('mahasiswas.khs_pdf', ['Mahasiswa' => $Mahasiswa]);
+        return $cetak_pdf->stream();
     }
 }
