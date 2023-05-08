@@ -32,16 +32,19 @@
     <tr>
     <th>Nim</th>
     <th>Nama</th>
+    <th>Foto</th>
     <th>Kelas</th>
     <th>Jurusan</th>
+    
     {{-- <th>No_Handphone</th> --}}
-    <th width="280px">Action</th>
+    <th width="320px">Action</th>
     </tr>
     @foreach ($mahasiswas as $Mahasiswa)
     <tr>
     
     <td>{{ $Mahasiswa->nim }}</td>
     <td>{{ $Mahasiswa->nama }}</td>
+    <td><img width="100px" src="{{ $Mahasiswa->foto==''? asset('images/default.png'): asset('storage/'.$Mahasiswa->foto) }}" alt=""></td>
     <td>{{ $Mahasiswa->kelas->nama_kelas }}</td>
     <td>{{ $Mahasiswa->jurusan }}</td>
     {{-- <td>{{ $Mahasiswa->no_handphone }}</td> --}}

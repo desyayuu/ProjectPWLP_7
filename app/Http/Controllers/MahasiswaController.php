@@ -5,6 +5,7 @@ use App\Models\Mahasiswa;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class MahasiswaController extends Controller
@@ -56,7 +57,8 @@ class MahasiswaController extends Controller
         //
         $request->validate([
             'nim'=> 'required',
-            'nama'=> 'required', 
+            'nama'=> 'required',
+            'foto' => 'required', 
             'tanggal_lahir'=> 'required',
             'kelas'=> 'required',
             'jurusan'=> 'required', 
@@ -64,10 +66,16 @@ class MahasiswaController extends Controller
             'email' => 'required',
         ]);
 
+        if($request->file('foto')){
+            $image_name = $request->file('foto')->store('images', 'public');
+        }
+
+
         //fungsi eloquent untuk tambah data 
         $mahasiswa = new Mahasiswa;
         $mahasiswa->nim=$request->get('nim');
         $mahasiswa->nama=$request->get('nama');
+        $mahasiswa->foto = $image_name;
         $mahasiswa->tanggal_lahir=$request->get('tanggal_lahir');
         $mahasiswa->jurusan=$request->get('jurusan');
         $mahasiswa->no_handphone=$request->get('no_handphone');
@@ -132,15 +140,24 @@ class MahasiswaController extends Controller
             'tanggal_lahir' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
+            'foto' => 'required',
             'no_handphone' => 'required',
             'email' => 'required'
             ]);
 
             $mahasiswa = Mahasiswa::with('kelas')->where('nim', $nim)->first();
+
+            if ($mahasiswa->foto && file_exists(storage_path('app/public/' . $mahasiswa->foto))) {
+                Storage::delete('public/' . $mahasiswa->foto);
+            }
+    
+            $image_name = $request->file('foto')->store('images', 'public');
+            
             $mahasiswa->nim = $request->get('nim');
             $mahasiswa->nama = $request->get('nama');
             $mahasiswa->tanggal_lahir = $request->get('tanggal_lahir');
             $mahasiswa->jurusan = $request->get('jurusan');
+            $mahasiswa->foto = $image_name;
             $mahasiswa->no_handphone = $request->get('no_handphone');
             $mahasiswa->email = $request->get('email');
 
